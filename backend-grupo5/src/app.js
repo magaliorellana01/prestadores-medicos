@@ -54,6 +54,11 @@ mongoose
   .then(() => console.log("MongoDB connected"))
   .catch((error) => console.error("MongoDB connection error:", error));
 
+// Health check (para pings que mantienen despierto el servicio en Render)
+app.get("/health", (req, res) => {
+  res.status(200).json({ status: "ok" });
+});
+
 // Rutas
 app.use("/historias-clinicas", verifyTokenMiddleware, historiasClinicasRoutes);
 app.use("/situaciones-terapeuticas", verifyTokenMiddleware, situacionTerapeuticaRoutes);
