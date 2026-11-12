@@ -31,9 +31,15 @@ const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(express.json());
+// FRONTEND_URL admite varios orígenes separados por coma
+const allowedOrigins = (process.env.FRONTEND_URL || "http://localhost:5173")
+  .split(",")
+  .map((o) => o.trim().replace(/\/$/, ""))
+  .filter(Boolean);
+
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || "http://localhost:5173",
+    origin: allowedOrigins,
     credentials: true,
   })
 );

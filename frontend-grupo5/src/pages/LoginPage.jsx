@@ -60,7 +60,7 @@ const LoginPage = () => {
   const handleLogout = () => {
     sessionStorage.removeItem('token');
     sessionStorage.removeItem('prestador');
-    window.location.reload();
+    navigate('/login', { replace: true });
   };
 
   const handleSubmit = (e) => {

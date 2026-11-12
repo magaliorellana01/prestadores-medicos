@@ -31,7 +31,8 @@ api.interceptors.response.use(
     if (error?.response?.status === 401 || error?.status === 401) {
       console.warn("Token expirado o no válido.");
       logoutUser();
-      window.location.reload();
+      // Ir a la raíz (siempre la sirve el hosting) en vez de recargar la ruta actual
+      window.location.assign("/");
     }
     return Promise.reject(error);
   }

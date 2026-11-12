@@ -43,10 +43,7 @@ export function TopMenu({ theme }) {
   const handleLogout = () => {
     sessionStorage.removeItem('token');
     sessionStorage.removeItem('prestador');
-    navigate('/login');
-    setTimeout(() => {
-      window.location.reload();
-    }, 100);
+    navigate('/login', { replace: true });
   };
 
   const menuItems = [
