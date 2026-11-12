@@ -72,3 +72,16 @@ app.use("/sedes", sedesRoutes);
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+// Keep-alive: en Render (plan gratis) el servicio se duerme tras 15 min sin tráfico.
+// Render define RENDER_EXTERNAL_URL automáticamente; en local no se activa.
+const KEEP_ALIVE_URL = process.env.RENDER_EXTERNAL_URL;
+if (KEEP_ALIVE_URL && typeof fetch === "function") {
+  const INTERVAL_MS = 10 * 60 * 1000;
+  setInterval(() => {
+    fetch(`${KEEP_ALIVE_URL}/health`).catch((err) =>
+      console.error("Keep-alive ping falló:", err.message)
+    );
+  }, INTERVAL_MS);
+  console.log(`Keep-alive activo: ping a ${KEEP_ALIVE_URL}/health cada 10 min`);
+}
